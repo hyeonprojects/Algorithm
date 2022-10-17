@@ -3,7 +3,7 @@ import collections
 input_data = ["eat", "tea", "tan", "ate", "nat", "bat"]
 
 
-def group_anagrams(input: list[str]) -> list[list]:
+def group_anagrams(input: list[str]) -> list[list[str]]:
     angrams = collections.defaultdict(list)
 
     for word in input:
