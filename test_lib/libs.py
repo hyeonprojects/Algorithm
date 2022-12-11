@@ -5,18 +5,23 @@
 # 사이클이 존재하는 경로 찾는 경우
 # 스택 또는 재귀함수로 구현
 
-class Graph:
-    def __init__(self):
-        self.v = 0
-        self.adj = []
+visited = [False] * 9
 
-    def DFS(self, visited: list[bool]):
-        # 현재 노드를 방문한 것으로 표시하고 값을 출력
-        visited[self.v] = True
-        
+graph = [
+    [],
+    [2, 3, 8],
+    [1]
+]
 
+# 핵심은 방문이 있는지에 대한 데이터 값이 있고, 이를 node간에 연결된 edge를 적혀있어야함.
 
+def DFS(graph, v, visited):
+    visited[v] = True
+    print(v, end = ' ')
 
+    for i in graph[v]:
+        if not visited[i]:
+            DFS(graph, i , visited)
 
 # 해시테이블
 # key와 value가 있는 값이니
