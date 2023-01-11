@@ -1,26 +1,30 @@
 # 배열을 입력받아 합으로 0을 만들 수 이쓴 3개의 엘리먼트를 출력하라.
 
-nums = [-1, 0 , 1, 2, -1, -4]
+nums = [-1, 0, 1, 2, -1, -4]
 
 # [
 #     [-1, 0, 1],
 #     [-1, -1, 2]
 # ]
 
-# 브루트 포스 계산
+# 투 포인트 계산
 def three_sum(nums: list[int]) -> list[list[int]]:
     results = []
     nums.sort()
 
+    print(nums)
+
     for i in range(len(nums) - 2):
         # 중복된 값 건너뛰기
-        if i > 0 and nums[i] == nums[i -1]:
+        if i > 0 and nums[i] == nums[i - 1]:
             continue
 
         # 간격을 좁혀가며 합 sum 계산
         left, right = i + 1, len(nums) - 1
         while left < right:
+            print("{} + {} + {}".format(nums[i], nums[left], nums[right]))
             sum = nums[i] + nums[left] + nums[right]
+            print(sum)
             if sum < 0:
                 left += 1
             elif sum > 0:
@@ -37,3 +41,7 @@ def three_sum(nums: list[int]) -> list[list[int]]:
                 right += 1
 
     return results
+
+
+if __name__ == '__main__':
+    print(three_sum(nums))
