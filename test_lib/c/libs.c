@@ -10,9 +10,6 @@ bool isPalindrome(char word[])
     int length;                  // 문자열 길이
     bool isPalindrome = true;    // 회문 판별값을 저장할 변수, 초깃값은 true
 
-//    printf("단어를 입력하세요: ");
-//    scanf("%s", word);
-
     length = strlen(word);    // 문자열의 길이를 구함
 
     // 0부터 문자열 길이의 절반만큼 반복
@@ -27,8 +24,7 @@ bool isPalindrome(char word[])
         }
     }
 
-    printf("%d\n", isPalindrome);    // 회문 판별값 출력
-
+//    printf("%d\n", isPalindrome);    // 회문 판별값 출력
     return isPalindrome;
 }
 
