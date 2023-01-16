@@ -1,81 +1,82 @@
-
-# DFS 깊이 우선 탐색
-# 한 가지 정점과 연결된 모든 정점을 탐색해야하는 경우
-# 경로를 찾아야 되는 경우
-# 사이클이 존재하는 경로 찾는 경우
-# 스택 또는 재귀함수로 구현
-
-visited = [False] * 9
-
-graph = [
-    [],
-    [2, 3, 8],
-    [1]
-]
-
-# 핵심은 방문이 있는지에 대한 데이터 값이 있고, 이를 node간에 연결된 edge를 적혀있어야함.
-
-def DFS(graph, v, visited):
-    visited[v] = True
-    print(v, end = ' ')
-
-    for i in graph[v]:
-        if not visited[i]:
-            DFS(graph, i , visited)
+"""
+Lib Application =
+"""
+import collections
+import re
 
 
-# 다른 구현
-
-from collections import deque
-
-# set 중복은 허용하지 않는다. 순서가 없다. set 자료구조
-graph_list = {1: set([3, 4]),
-              2: set([3, 4, 5]),
-              3: set([1, 5]),
-              4: set([1]),
-              5: set([2, 6]),
-              6: set([3, 5])}
-root_node = 1
-
-def BFS_with_adj_list(graph, root):
-    visited = []
-    queue = deque([root])
-
-    while queue:
-        n = queue.popleft()
-        if n not in visited:
-            visited.append(n)
-            queue += graph[n] - set(visited)
-    return visited
-
-def DFS_with_adj_list(graph, root):
-    visited = []
-    stack = [root]
-
-    while stack:
-        n = stack.pop()
-        if n not in visited:
-            visited.append(n)
-            stack += graph[n] - set(visited)
-    return visited
-
-
-# 해시테이블
-# key와 value가 있는 값이니
-
-def create_hashtable(keys: list[str], values: list[str]) -> dict:
+# 문자열 뒤집기 시리즈
+def reverse_string1(string_data: str) -> str:
     """
-    해쉬테이블 만들어주기 갯수가 동일해야함
+    문자열 순서 뒤집기 slice로 뒤집기
+    :param string_data: 뒤집을 문자열
+    :return: 반전된 문자열
     """
-    hash_table = {}
-    for key, value in zip(keys, values):
-        hash_table[key] = value
-        print(hash_table[key].items)
-    return hash_table
+    return string_data[::-1]
 
 
-# 문제에서 선입 선출, 후입 선출의 단서가 보이면 사용
+def reverse_string2(string_data: str) -> str:
+    """
+    문자열 순서 뒤집기 reversed 함수 사용
+    :param string_data: 뒤집을 문자열
+    :return: 반전된 문자열
+    """
+    return "".join(reversed(string_data))
+
+
+def reverse_string3(string_data: str) -> str:
+    """
+    문자열 순서 뒤집기, 가장 단순한 반복문 방법
+    :param string_data: 뒤집을 문자열
+    :return: 반전된 문자열
+    """
+    reversed_str = ""
+    for i in string_data:
+        reversed_str = i + reversed_str
+    return reversed_str
+
+
+def isPalindrome(string_data: str) -> bool:
+    """
+    팰린드롬 : 앞 뒤가 바뀌어도 똑같은 문자인지 확인하는 방법
+    :param string_data: 팰린드롬 체크할 문자열 데이터
+    :return: true인 경우는 팰린드롬이며 false인경우 아님
+    """
+    string_data = string_data.lower()
+    # 불필요한 문자
+    string_data = re.sub()
+
+
+def most_common_word(paragraph: str, banned: list[str] | None) -> str:
+    """
+    금지된 단어를 제외한 가장 흔하게 등장하는 단어를 출력함
+    대소문자를 구별하지 않고, 구두점(마침표, 쉼표 등) 무시함
+    :param paragraph: 조회할 문자열
+    :param banned: 제외할 문자열
+    :return: 금지된 단어를 제외할 제일 빈도수 높은 문자열
+    """
+    words = [word for word in re.sub(r'[^\w]', ' ', paragraph).lower().split() if word not in banned]
+    counts = collections.Counter(words)
+    return counts.most_common(1)[0][0]
+
+
+def group_anagrams(string_datas: list[str]) -> list[list[str]]:
+    """
+    문자열 배열을 받아서 애너그램 단위로 그루핑 하는 함수
+    :param string_datas: 문자열 배열
+    :return: 리스트 안에 리스트단위로 애너그램 단위의 그루핑 합니다.
+    """
+    anagrams = collections.defaultdict(list)
+
+    for word in string_datas:
+        anagrams["".join(sorted(word))].append(word)
+    return list(anagrams.values())
+
 
 if __name__ == '__main__':
-    print(BFS_with_adj_list(graph_list, root_node))
-    print(BFS_with_adj_list(graph_list, root_node))
+    paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
+    banned = ["hit"]
+    print(most_common_word(paragraph, banned))
+
+    data = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    print(group_anagrams(data))
