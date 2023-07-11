@@ -29,3 +29,4 @@ bool isPalindrome(char word[])
 }
 
 
+// 이진 트리 만들기

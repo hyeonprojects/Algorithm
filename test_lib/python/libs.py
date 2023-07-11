@@ -73,10 +73,106 @@ def group_anagrams(string_datas: list[str]) -> list[list[str]]:
     return list(anagrams.values())
 
 
-if __name__ == '__main__':
-    paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
-    banned = ["hit"]
-    print(most_common_word(paragraph, banned))
+def binary_search(arr: list, val):
+    """
+    비 재귀적 이진 탐색, 찾는 데이터가 arr에 있나??
+    :param arr:
+    :param val:
+    :return:
+    """
+    first, last = 0, len(arr) - 1
+    while first <= last:
+        mid = (first + last) // 2
+        if arr[mid] == val:
+            return mid
+        if arr[mid] > val:
+            last = mide - 1
+        else:
+            first = mide + 1
+    return -1
 
-    data = ["eat", "tea", "tan", "ate", "nat", "bat"]
-    print(group_anagrams(data))
+
+def dfs(graph: Dict, start: int):
+    """
+    깊이 우선 탐색 DFS
+    핵심은 필요한 노드의 데이터가 발견되었을떄 뺴내거나 또는 이를 사용해서 개발
+    :param graph: Dict 자료형 형태로 준다. key는 노드 value는 인접노드
+    :param start:
+    :return: 
+    """
+    visited = {i: False for i in graph.keys()}
+
+    def search(current: int):
+        visited[current] = True
+        for nxt in graph[current]:
+            if not visited[nxt]:
+                search(nxt)
+
+    search(start)
+
+
+def dfs_stack(start_node):
+    """
+    알고리즘 분석을 위한 용도
+    dfs의 알고리즘 구현 방법에 대해서 논의함.
+    """
+    # 1) stack 에 첫 번째 노드 넣으면서 시작
+    stack = [start_node, ]
+
+    while True:
+        # 2) stack이 비어있는지 확인
+        if len(stack) == 0:
+            print('All node searched.')
+        return None
+
+        # 3) stack에서 맨 위의 노드를 pop
+        node = stack.pop()
+
+        # 4) 만약 node가 찾고자 하는 target이라면 서치 중단!
+        if node == TARGET:
+            print('The target found.')
+        return node
+
+        # 5) node의 자식을 expand 해서 children에 저장
+        children = expand(node)
+
+        # 6) children을 stack에 쌓기
+        stack.extend(children)
+
+        # 7) 이렇게 target을 찾거나, 전부 탐색해서 stack이 빌 때까지 while문 반복
+
+
+class Stack:
+    """
+    Stack 자료구조를 사용할 수 있도록 클래스로 개발
+    """
+    def __init__(self):
+        self.items = []
+
+    def push(self, data):
+        self.items.append(data)
+
+    def pop(self):
+
+        return self.items.pop()
+
+    def peek(self):
+        """
+        최근에 넣은 데이터를 빼지 않고 알고 싶을떄
+        """
+        return self.items[-1]
+
+    def is_empty(self):
+        return not self.items
+
+
+
+
+
+# if __name__ == '__main__':
+    # paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
+    # banned = ["hit"]
+    # print(most_common_word(paragraph, banned))
+    #
+    # data = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    # print(group_anagrams(data))
