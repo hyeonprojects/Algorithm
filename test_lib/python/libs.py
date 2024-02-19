@@ -36,15 +36,30 @@ def reverse_string3(string_data: str) -> str:
     return reversed_str
 
 
-def isPalindrome(string_data: str) -> bool:
+def is_palindrome(string_data: str) -> bool:
     """
     팰린드롬 : 앞 뒤가 바뀌어도 똑같은 문자인지 확인하는 방법
     :param string_data: 팰린드롬 체크할 문자열 데이터
     :return: true인 경우는 팰린드롬이며 false인경우 아님
     """
-    string_data = string_data.lower()
-    # 불필요한 문자
-    string_data = re.sub()
+    left, right = 0, len(string_data) - 1
+    
+    while left < right:
+        # 왼쪽 포인터가 가리키는 문자가 유효하지 않으면 오른쪽으로 이동
+        while left < right and not string_data[left].isalnum():
+            left += 1
+        # 오른쪽 포인터가 가리키는 문자가 유효하지 않으면 왼쪽으로 이동
+        while left < right and not string_data[right].isalnum():
+            right -= 1
+        
+        # 두 포인터가 가리키는 문자를 비교
+        if string_data[left].lower() != string_data[right].lower():
+            return False
+        
+        left += 1
+        right -= 1
+    
+    return True
 
 
 def most_common_word(paragraph: str, banned: list[str] | None) -> str:
